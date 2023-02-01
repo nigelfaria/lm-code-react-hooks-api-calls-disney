@@ -1,20 +1,23 @@
 import { DisneyCharacter } from "../disney_character"
+import React, { useContext } from "react";
+import { FavouritesContext } from "../App";
 
-interface CharacterProps{
+interface CharacterProps {
   character: DisneyCharacter;
-  characterFavourites: Array<number>;
   updateFavourites: (favourites: Array<number>) => void;
 }
 
-const Character: React.FC<CharacterProps> = ({ character, characterFavourites, updateFavourites }) => {
+
+const Character: React.FC<CharacterProps> = ({ character, updateFavourites }) => {
+  const characterFavourites = useContext(FavouritesContext);
 
   let imageSrc = "https://picsum.photos/300/200?blur";
-  if (character.imageUrl){
+  if (character.imageUrl) {
     imageSrc = character.imageUrl.indexOf('/revision') > 0 ? character.imageUrl.substring(0, character.imageUrl.indexOf('/revision')) : character.imageUrl;
   }
 
-  function toggleFavouriteForCharacter(characterId: number){
-    if(!characterFavourites.includes(characterId)){
+  function toggleFavouriteForCharacter(characterId: number) {
+    if (!characterFavourites.includes(characterId)) {
       updateFavourites([...characterFavourites, characterId]);
     }
     else {

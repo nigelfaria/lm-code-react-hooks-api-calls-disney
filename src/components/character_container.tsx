@@ -4,10 +4,9 @@ import Character from './character';
 
 interface CharacterContainerProps{
     characters: Array<DisneyCharacter>;
-    characterFavourites: Array<number>;
     updateFavourites: (favourites: Array<number>) => void;
 }
-const CharacterContainer : React.FC<CharacterContainerProps> = ( { characters, characterFavourites, updateFavourites}) => {
+const CharacterContainer : React.FC<CharacterContainerProps> = ( { characters, updateFavourites}) => {
 
 	// this function separates our array of DisneyCharacters into rows and columns
     const buildRows = () => {
@@ -18,7 +17,6 @@ const CharacterContainer : React.FC<CharacterContainerProps> = ( { characters, c
 		characters.forEach((character, index) => {
             cols.push(<Character key={character._id} 
                                     character={character}
-                                    characterFavourites={characterFavourites}
                                     updateFavourites={updateFavourites}
                  />);
             if ((index + 1) % 5 === 0) {
