@@ -6,13 +6,14 @@ import CharacterContainer from './components/character_container';
 import Navigation from './components/navigation';
 import { DisneyCharacter } from './disney_character';
 import { FavouritesProvider } from './components/favourites_context';
-import { useFavourites,useFavouritesUpdate } from './components/favourites_context';
 
 
 const App: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [characters, setCharacters] = useState<Array<DisneyCharacter>>([])
+  const [showFavourites, setShowFavourites] = useState<boolean>(false);
+
   useEffect(() => {
     getCharacters(currentPage);
   }, [currentPage]);
@@ -27,8 +28,8 @@ const App: React.FC = () => {
     <FavouritesProvider>
       <div className="page">
         <Header currentPage={currentPage} />
-        <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
-        <CharacterContainer characters={characters} />
+        <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} showFavourites={showFavourites} setShowFavourites={setShowFavourites}/>
+        <CharacterContainer characters={characters} showFavourites={showFavourites} />
       </div>
     </FavouritesProvider>
   );
